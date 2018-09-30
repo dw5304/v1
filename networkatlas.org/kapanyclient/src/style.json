@@ -1,0 +1,61 @@
+{
+  "version": 8,
+  "id": "network-map",
+  "name": "Network",
+  "center": [
+    0,
+    0
+  ],
+  "zoom": 1,
+  "sprite": "mapbox://sprites/mapbox/dark-v8",
+  "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+  "sources": {
+    "landingpoints": {
+      "type": "geojson",
+      "data": "http://server.michogarcia.org/api/v1/landingpoints"
+    }
+  },
+  "layers": [{
+      "id": "landingpoints",
+      "type": "circle",
+      "source": "landingpoints",
+      "paint": {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"],
+          3, 2,
+          21, 16
+        ],
+        "circle-color": "#dedede",
+        "circle-stroke-width": ["interpolate", ["linear"], ["zoom"],
+          6, 0.5,
+          16, 2,
+          21, 4
+        ],
+        "circle-stroke-color": "#888"
+      }
+    }, {
+      "id": "landing-name",
+      "type": "symbol",
+      "source": "landingpoints",
+      "layout": {
+        "symbol-placement": "point",
+        "text-field": ["to-string", ["get", "name"]],
+        "text-font": [
+          "Open Sans Bold"
+        ],
+        "text-size": ["interpolate", ["linear"], ["zoom"],
+          3, 0,
+          4, 10,
+          20, 24
+        ],
+        "text-anchor": "left",
+        "text-offset": [1, 0],
+        "text-optional": true
+      },
+      "paint": {
+        "text-color": "#fff",
+        "text-halo-color": "#000",
+        "text-halo-width": 1
+      }
+    }
+  ]
+}
